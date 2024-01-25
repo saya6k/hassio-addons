@@ -25,6 +25,13 @@ _Brother-QL Web add-on to print labels on Brother Label Printers._
 
 _Mattermost add-on to use as project manage in Home for family._
 
+### [Step-CA](https://github.com/saya6k/hassio-addon-step-ca)
+
+![Supports aarch64 Architecture][aarch64-shield]
+![Supports amd64 Architecture][amd64-shield]
+
+Step-CA add-on to use as local CA._
+
 <!--
 
 Notes to developers after forking or using the github template feature:
