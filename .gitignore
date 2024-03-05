@@ -5,7 +5,7 @@
 # Folders
 !mattermost/
 !brother-ql-web/
-!step-ca/
+step-ca/
 
 # Files
 !repository.json
