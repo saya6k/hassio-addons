@@ -18,19 +18,14 @@ This repository contains the following add-ons
 
 _Brother-QL Web add-on to print labels on Brother Label Printers._
 
-### [Mattermost](https://github.com/saya6k/hassio-addon-mattermost)
+### [ytdlp2STRM](https://github.com/saya6k/hassio-addon-ytdlp2strm)
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
 
-_Mattermost add-on to use as project manage in Home for family._
+ytdlp2STRM add-on to convert Youtube & Twitch Live stream as strm files._
 
-### [Step-CA](https://github.com/saya6k/hassio-addon-step-ca)
 
-![Supports aarch64 Architecture][aarch64-shield]
-![Supports amd64 Architecture][amd64-shield]
-
-Step-CA add-on to use as local CA._
 
 <!--
 
