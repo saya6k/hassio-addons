@@ -1,6 +1,6 @@
-[submodule "mattermost"]
-	path = mattermost
-	url = https://github.com/saya6k/hassio-addon-mattermost
 [submodule "brother-ql-web"]
 	path = brother-ql-web
 	url = https://github.com/saya6k/hassio-addon-brother-ql-web
+[submodule "ytdlp2strm"]
+	path = ytdlp2strm
+	url = https://github.com/saya6k/hassio-addon-ytdlp2strm
