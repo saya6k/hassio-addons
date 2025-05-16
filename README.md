@@ -14,9 +14,8 @@ This repository contains the following add-ons
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
-![Supports armv7 Architecture][armv7-shield]
 
-_Brother-QL Web add-on to print labels on Brother Label Printers._
+Brother-QL Web add-on to print labels on Brother Label Printers._
 
 ### [ytdlp2STRM](https://github.com/saya6k/hassio-addon-ytdlp2strm)
 
@@ -25,6 +24,12 @@ _Brother-QL Web add-on to print labels on Brother Label Printers._
 
 ytdlp2STRM add-on to convert Youtube & Twitch Live stream as strm files._
 
+### [mcp-grocy-api](https://github.com/saya6k/mcp-grocy-api]
+
+![Supports aarch64 Architecture][aarch64-shield]
+![Supports amd64 Architecture][amd64-shield]
+
+mcp-grocy-api add-on to support MCP(model context protocol) with Grocy.
 
 
 <!--
@@ -48,6 +53,3 @@ Notes to developers after forking or using the github template feature:
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
-[armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
-[armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
-[i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
