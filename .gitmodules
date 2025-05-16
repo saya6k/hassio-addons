@@ -4,3 +4,6 @@
 [submodule "ytdlp2strm"]
 	path = ytdlp2strm
 	url = https://github.com/saya6k/hassio-addon-ytdlp2strm
+[submodule "mcp-grocy-api"]
+	path = mcp-grocy-api
+	url = https://github.com/saya6k/mcp-grocy-api.git
