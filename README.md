@@ -24,7 +24,7 @@ Brother-QL Web add-on to print labels on Brother Label Printers._
 
 ytdlp2STRM add-on to convert Youtube & Twitch Live stream as strm files._
 
-### [mcp-grocy-api](https://github.com/saya6k/mcp-grocy-api]
+### [mcp-grocy-api](https://github.com/saya6k/mcp-grocy-api)
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
