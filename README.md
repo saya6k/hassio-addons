@@ -2,8 +2,8 @@
 
 [![License](https://img.shields.io/github/license/saya6k/hassio-addons.svg)](LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/saya6k/hassio-addons)](https://github.com/saya6k/hassio-addons/issues)
-![Repository Stats](https://byob.yarr.is/saya6k/hassio-addons/repository-stats)
-![Last Commit](https://byob.yarr.is/saya6k/hassio-addons/last-commit)
+[![Last Commit](https://img.shields.io/github/last-commit/saya6k/hassio-addons)](https://github.com/saya6k/hassio-addons/commits/main)
+[![Stars](https://img.shields.io/github/stars/saya6k/hassio-addons)](https://github.com/saya6k/hassio-addons/stargazers)
 
 > My Personal Home Assistant Add-on collection for extending functionality and automating daily tasks.
 
@@ -28,7 +28,7 @@ This repository contains the following add-ons:
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
 [![GitHub Release][brother-ql-web-release-shield]][brother-ql-web-release]
-![Submodule Status](https://byob.yarr.is/saya6k/hassio-addons/brother-ql-web-status)
+[![Submodule](https://img.shields.io/badge/submodule-brother-ql-web: unknown)](https://github.com/saya6k/hassio-addon-brother-ql-web)
 
 _Brother-QL Web add-on to print labels on Brother Label Printers._
 
