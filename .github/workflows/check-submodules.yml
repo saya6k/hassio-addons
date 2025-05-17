@@ -18,28 +18,33 @@ jobs:
           
       - name: Generate badges for submodules
         run: |
-          # Create array of submodules to process
+          # Create array of submodules to check
           SUBMODULES=("brother-ql-web" "ytdlp2strm" "mcp-grocy-api")
           
-          # Process each submodule
+          # Process each submodule directly
           for submodule in "${SUBMODULES[@]}"; do
-            # Get status of the submodule
+            # Get status of this submodule
             STATUS=$(git submodule status -- $submodule | awk '{print $1}')
+            echo "Processing $submodule with status: $STATUS"
             
-            # Create badge name based on submodule name
+            # Create badge name
             BADGE_NAME="${submodule}-status"
             
-            # Use the BYOB API to create/update badge
-            curl -X POST https://byob.yarr.is/api/badge \
-              -H "Content-Type: application/json" \
-              -d "{
-                \"name\": \"${BADGE_NAME}\",
-                \"icon\": \"octicon:git-branch-16\",
-                \"status\": \"${submodule}: ${STATUS}\",
-                \"color\": \"blue\",
-                \"repository\": \"${{ github.repository }}\"
-              }" \
-              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"
+            # Generate badge using shields.io dynamic badges rather than BYOB
+            # We'll update the README directly with the new badge URL
+            BADGE_URL="https://img.shields.io/badge/submodule-${submodule}_${STATUS:0:7}-blue"
             
-            echo "Created/updated badge for ${submodule} with status ${STATUS}"
+            # Update the README with the new badge information
+            if grep -q "$submodule.*\!\[Submodule\]" README.md; then
+              sed -i "s|\(submodule-${submodule}[^)]*\)|\1_${STATUS:0:7}|g" README.md
+            else
+              echo "Badge for $submodule not found in README.md"
+            fi
           done
+          
+      - name: Commit README changes if any
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add README.md
+          git diff --staged --quiet || git commit -m "Update submodule status badges" && git push
