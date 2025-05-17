@@ -1,6 +1,6 @@
 # 🏠 saya6k Home Assistant add-on repository
 
-[![License](https://img.shields.io/github/license/saya6k/hassio-addons.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/saya6k/hassio-addons)](https://github.com/saya6k/hassio-addons/issues)
 [![Last Commit](https://img.shields.io/github/last-commit/saya6k/hassio-addons)](https://github.com/saya6k/hassio-addons/commits/main)
 [![Stars](https://img.shields.io/github/stars/saya6k/hassio-addons)](https://github.com/saya6k/hassio-addons/stargazers)
