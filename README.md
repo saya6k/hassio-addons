@@ -28,7 +28,7 @@ This repository contains the following add-ons:
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
 [![GitHub Release][brother-ql-web-release-shield]][brother-ql-web-release]
-[![Submodule](https://img.shields.io/badge/submodule-brother-ql-web: unknown)](https://github.com/saya6k/hassio-addon-brother-ql-web)
+[![Submodule](https://img.shields.io/badge/submodule-brother_ql_web-blue)](https://github.com/saya6k/hassio-addon-brother-ql-web)
 
 _Brother-QL Web add-on to print labels on Brother Label Printers._
 
@@ -37,6 +37,7 @@ _Brother-QL Web add-on to print labels on Brother Label Printers._
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
 [![GitHub Release][ytdlp2strm-release-shield]][ytdlp2strm-release]
+[![Submodule](https://img.shields.io/badge/submodule-ytdlp2strm-blue)](https://github.com/saya6k/hassio-addon-ytdlp2strm)
 
 _ytdlp2STRM add-on to convert Youtube & Twitch Live stream as strm files._
 
@@ -45,7 +46,7 @@ _ytdlp2STRM add-on to convert Youtube & Twitch Live stream as strm files._
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
 [![GitHub Release][mcp-grocy-release-shield]][mcp-grocy-release]
-![Submodule Status](https://byob.yarr.is/saya6k/hassio-addons/mcp-grocy-api: 43b6f86)](https://github.com/saya6k/mcp-grocy-api/tree/43b6f86)
+[![Submodule](https://img.shields.io/badge/submodule-mcp_grocy_api-blue)](https://github.com/saya6k/mcp-grocy-api)
 
 _mcp-grocy-api add-on to support MCP(model context protocol) with Grocy._
 
