@@ -45,7 +45,7 @@ _ytdlp2STRM add-on to convert Youtube & Twitch Live stream as strm files._
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
 [![GitHub Release][mcp-grocy-release-shield]][mcp-grocy-release]
-![Submodule Status](https://byob.yarr.is/saya6k/hassio-addons/mcp-grocy-status)
+![Submodule Status](https://byob.yarr.is/saya6k/hassio-addons/mcp-grocy-api: 43b6f86)](https://github.com/saya6k/mcp-grocy-api/tree/43b6f86)
 
 _mcp-grocy-api add-on to support MCP(model context protocol) with Grocy._
 
