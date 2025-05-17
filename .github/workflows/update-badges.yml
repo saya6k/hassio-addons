@@ -1,0 +1,29 @@
+name: Update Repository Badges
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  update-repo-badges:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Update Repository Badges
+        uses: RubbaBoy/BYOB@v1.3.0
+        with:
+          NAME: repository-stats
+          ICON: 'octicon:repo-16'
+          STATUS: 'Last updated: ${{ github.event.repository.updated_at }}'
+          COLOR: blue
+          
+      - name: Update Last Commit Badge
+        uses: RubbaBoy/BYOB@v1.3.0
+        with:
+          NAME: last-commit
+          ICON: 'octicon:git-commit-16'
+          STATUS: 'Last commit: ${{ github.event.head_commit.timestamp }}'
+          COLOR: green

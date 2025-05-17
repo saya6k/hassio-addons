@@ -1,8 +1,9 @@
 # 🏠 saya6k Home Assistant add-on repository
 
-[![Maintenance](https://img.shields.io/maintenance/yes/2023.svg)](#)
 [![License](https://img.shields.io/github/license/saya6k/hassio-addons.svg)](LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/saya6k/hassio-addons)](https://github.com/saya6k/hassio-addons/issues)
+![Repository Stats](https://byob.yarr.is/saya6k/hassio-addons/repository-stats)
+![Last Commit](https://byob.yarr.is/saya6k/hassio-addons/last-commit)
 
 > My Personal Home Assistant Add-on collection for extending functionality and automating daily tasks.
 
@@ -27,6 +28,7 @@ This repository contains the following add-ons:
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
 [![GitHub Release][brother-ql-web-release-shield]][brother-ql-web-release]
+![Submodule Status](https://byob.yarr.is/saya6k/hassio-addons/brother-ql-web-status)
 
 _Brother-QL Web add-on to print labels on Brother Label Printers._
 
@@ -43,6 +45,7 @@ _ytdlp2STRM add-on to convert Youtube & Twitch Live stream as strm files._
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
 [![GitHub Release][mcp-grocy-release-shield]][mcp-grocy-release]
+![Submodule Status](https://byob.yarr.is/saya6k/hassio-addons/mcp-grocy-status)
 
 _mcp-grocy-api add-on to support MCP(model context protocol) with Grocy._
 

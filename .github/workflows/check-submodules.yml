@@ -1,0 +1,66 @@
+name: Check Submodules
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *'  # Run daily
+  workflow_dispatch:
+
+jobs:
+  check-submodules:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          
+      - name: Get and process all submodules dynamically
+        id: submodule-processing
+        run: |
+          # Get list of all submodules
+          SUBMODULES=$(git config --file .gitmodules --get-regexp path | awk '{ print $2 }')
+          
+          # Create a JSON array to store submodule info
+          echo "SUBMODULE_LIST<<EOF" >> $GITHUB_OUTPUT
+          echo "$SUBMODULES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          
+          # Process each submodule and add its status to outputs
+          for submodule in $SUBMODULES; do
+            # Get status and create safe name for environment variable
+            STATUS=$(git submodule status -- $submodule | awk '{print $1}')
+            SAFE_NAME=$(echo $submodule | tr '-' '_' | tr '/' '_' | tr '.' '_' | tr '[:lower:]' '[:upper:]')
+            
+            # Output the status for this submodule
+            echo "${SAFE_NAME}=${STATUS}" >> $GITHUB_OUTPUT
+          done
+      
+      - name: Generate badges for all submodules
+        run: |
+          # Read the submodule list from previous step
+          SUBMODULES="${{ steps.submodule-processing.outputs.SUBMODULE_LIST }}"
+          
+          # For each submodule, generate a badge
+          for submodule in $SUBMODULES; do
+            # Create safe names for variables and badge
+            SAFE_NAME=$(echo $submodule | tr '-' '_' | tr '/' '_' | tr '.' '_' | tr '[:lower:]' '[:upper:]')
+            BADGE_NAME=$(echo $submodule | tr '/' '-')
+            
+            # Get the status from the dynamic output
+            STATUS_VAR="steps.submodule-processing.outputs.${SAFE_NAME}"
+            STATUS=$(eval echo \${!STATUS_VAR})
+            
+            # Generate badge using BYOB action
+            curl -X POST https://byob.yarr.is/api/badge \
+              -H "Content-Type: application/json" \
+              -d "{
+                \"name\": \"${BADGE_NAME}-status\",
+                \"icon\": \"octicon:git-branch-16\",
+                \"status\": \"${submodule}: ${STATUS}\",
+                \"color\": \"blue\",
+                \"repository\": \"${{ github.repository }}\"
+              }" \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"
+          done
