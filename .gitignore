@@ -1,14 +1,62 @@
-# Example .gitignore file for your config dir.
-# An * ensures that everything will be ignored.
-*
+# Exclude submodule folders
+/ytdlp2strm/
+/brother-ql-web/
+/mcp-grocy-api/
 
-# Folders
-!mattermost/
-!brother-ql-web/
-step-ca/
+# OS specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
-# Files
-!repository.json
-!README.md
-!.gitignore
-!.gitmodules
+# IDE/Editor folders
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs and temporary files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm/
+.yarn/
+node_modules/
+*.tmp
+*.temp
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build output
+dist/
+build/
+out/
+public/build/
+coverage/
+
+# Dependency directories
+.pnp/
+.pnp.js
+.cache/
+.parcel-cache/
+
+# Testing
+.nyc_output/
+coverage/
+*.lcov
+
+# Backup files
+*.bak
+*.backup
+*.orig
+*.rej

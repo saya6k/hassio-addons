@@ -1,0 +1,55 @@
+name: Update Repository Badges
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  update-repo-badges:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Update Repository Badges
+        uses: RubbaBoy/BYOB@v1.3.0
+        with:
+          NAME: repository-stats
+          ICON: 'octicon:repo-16'
+          STATUS: 'Last updated: ${{ github.event.repository.updated_at }}'
+          COLOR: blue
+          
+      - name: Update Last Commit Badge
+        uses: RubbaBoy/BYOB@v1.3.0
+        with:
+          NAME: last-commit
+          ICON: 'octicon:git-commit-16'
+          STATUS: 'Last commit: ${{ github.event.head_commit.timestamp }}'
+          COLOR: green
+
+  update-readme-with-submodule-badges:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+      
+      - name: Update submodule badge links in README
+        run: |
+          # Get current commit SHA for each submodule
+          brother_ql_sha=$(cd brother-ql-web && git rev-parse --short HEAD || echo "unknown")
+          ytdlp2strm_sha=$(cd ytdlp2strm && git rev-parse --short HEAD || echo "unknown")
+          mcp_grocy_sha=$(cd mcp-grocy-api && git rev-parse --short HEAD || echo "unknown")
+          
+          # Update README with correct badge links
+          sed -i "s|brother-ql-web-status.*|brother-ql-web: ${brother_ql_sha})](https://github.com/saya6k/hassio-addon-brother-ql-web/tree/${brother_ql_sha})|g" README.md
+          sed -i "s|ytdlp2strm-status.*|ytdlp2strm: ${ytdlp2strm_sha})](https://github.com/saya6k/hassio-addon-ytdlp2strm/tree/${ytdlp2strm_sha})|g" README.md
+          sed -i "s|mcp-grocy-status.*|mcp-grocy-api: ${mcp_grocy_sha})](https://github.com/saya6k/mcp-grocy-api/tree/${mcp_grocy_sha})|g" README.md
+      
+      - name: Commit and push if README changed
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add README.md
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update submodule status badges" && git push)
