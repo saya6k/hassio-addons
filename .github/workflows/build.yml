@@ -38,25 +38,63 @@ jobs:
       - name: Get changed add-ons
         id: changed_addons
         run: |
-          declare -a changed_addons
-          for addon in ${{ steps.addons.outputs.addons }}; do
-            for changed_file in ${{ steps.changed_files.outputs.all }}; do
-              if [[ "${changed_file}" =~ ^${addon} ]]; then
-                if [[ ! "${changed_addons[@]}" =~ "${addon}" ]]; then
-                  changed_addons+=("\"${addon}\",");
+          echo "DEBUG: All addons found by find-addons: ${{ steps.addons.outputs.addons }}"
+          echo "DEBUG: All changed files found by get-changed-files: ${{ steps.changed_files.outputs.all }}"
+          declare -a changed_addons_array
+          
+          for addon_path in ${{ steps.addons.outputs.addons }}; do
+            echo "DEBUG: Checking addon: ${addon_path}"
+            for changed_file_path in ${{ steps.changed_files.outputs.all }}; do
+              echo "DEBUG:   Comparing with changed file: ${changed_file_path}"
+              # Check if changed_file_path starts with addon_path
+              # Ensure addon_path is not empty and handle potential trailing slashes if necessary
+              if [[ -n "${addon_path}" && "${changed_file_path}" =~ ^${addon_path}(/|$) ]]; then
+                echo "DEBUG:   Match found: ${changed_file_path} is part of ${addon_path}"
+                
+                is_duplicate=false
+                for existing_addon in "${changed_addons_array[@]}"; do
+                  if [[ "$existing_addon" == "$addon_path" ]]; then
+                    is_duplicate=true
+                    break
+                  fi
+                done
+                
+                if [ "$is_duplicate" = false ]; then
+                  echo "DEBUG:   Adding ${addon_path} to list of changed addons."
+                  changed_addons_array+=("${addon_path}")
+                else
+                  echo "DEBUG:   ${addon_path} already in list of changed addons."
                 fi
-                break
+                # Break from inner loop (changed_file_path) once a match is found for the current addon_path
+                break 
               fi
             done
           done
-          changed=$(echo ${changed_addons[@]} | rev | cut -c 2- | rev)
-          if [[ -n ${changed} ]]; then
-            echo "Changed add-ons: $changed";
+
+          if [ ${#changed_addons_array[@]} -gt 0 ]; then
+            echo "DEBUG: Final list of changed addons (array): ${changed_addons_array[*]}"
+            
+            json_array_content=""
+            first=true
+            for item in "${changed_addons_array[@]}"; do
+              if [ "$first" = true ]; then
+                first=false
+              else
+                json_array_content+=","
+              fi
+              json_array_content+="\"$item\""
+            done
+            final_json_array="[${json_array_content}]"
+            
+            echo "Changed add-ons identified. JSON for build matrix: ${final_json_array}"
             echo "changed=true" >> $GITHUB_OUTPUT
-            echo "addons=[$changed]" >> $GITHUB_OUTPUT
+            echo "addons=${final_json_array}" >> $GITHUB_OUTPUT
           else
-            echo "No add-on changed";
+            echo "No add-on changes detected by the script logic."
+            echo "changed=false" >> $GITHUB_OUTPUT # Explicitly set to false
+            echo "addons=[]" >> $GITHUB_OUTPUT # Empty JSON array
           fi
+          
   build:
     needs: init
     runs-on: ubuntu-latest
