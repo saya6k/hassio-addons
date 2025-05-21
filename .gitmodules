@@ -7,6 +7,3 @@
 [submodule "mcp-grocy-api"]
 	path = mcp-grocy-api
 	url = https://github.com/saya6k/mcp-grocy-api.git
-[submodule "mcp_grocy_api"]
-	path = mcp_grocy_api
-	url = https://github.com/saya6k/mcp-grocy-api.git
