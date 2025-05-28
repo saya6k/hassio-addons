@@ -1,0 +1,152 @@
+# This file should be placed in: saya6k/hassio-addons/.github/workflows/builder.yml
+# 
+# This is the Builder workflow that should be implemented in the hassio-addons repository
+# to automatically detect changes (including submodule updates) and build affected addons.
+
+name: Builder
+
+env:
+  DEFAULT_ARCHITECTURE: "amd64,aarch64"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    name: Initialize builds
+    outputs:
+      changed_addons: ${{ steps.changed_addons.outputs.addons }}
+      changed: ${{ steps.changed_addons.outputs.changed }}
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch full history for proper diff detection
+
+      - name: Initialize submodules
+        run: |
+          git submodule update --init --recursive
+
+      - name: Get changed files
+        id: changed_files
+        run: |
+          if [ "${{ github.event_name }}" == "push" ]; then
+            # For push events, compare with the previous commit
+            if [ "${{ github.event.before }}" == "0000000000000000000000000000000000000000" ]; then
+              # Initial commit - check all addons
+              echo "changed_files=." >> $GITHUB_OUTPUT
+            else
+              changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+              echo "changed_files=$changed_files" >> $GITHUB_OUTPUT
+            fi
+          else
+            # For PR events, compare with the base branch
+            changed_files=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+            echo "changed_files=$changed_files" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Detect changed addons
+        id: changed_addons
+        run: |
+          declare -a changed_addons
+          changed=false
+
+          # Get all addon directories (directories with config.yaml)
+          for addon in */; do
+            if [[ -f "${addon}config.yaml" ]]; then
+              addon_name=${addon%/}
+              
+              # Check if this addon or its submodules have changes
+              if echo "${{ steps.changed_files.outputs.changed_files }}" | grep -q "^${addon}" || \
+                 echo "${{ steps.changed_files.outputs.changed_files }}" | grep -q "^${addon_name}/"; then
+                echo "Detected changes in addon: $addon_name"
+                changed_addons+=("\"$addon_name\"")
+                changed=true
+              fi
+            fi
+          done
+
+          # Create JSON array
+          addons=$(IFS=','; echo "[${changed_addons[*]}]")
+          echo "changed_addons=$addons" >> $GITHUB_OUTPUT
+          echo "changed=$changed" >> $GITHUB_OUTPUT
+          
+          echo "Changed addons: $addons"
+          echo "Any changes: $changed"
+
+  build:
+    runs-on: ubuntu-latest
+    name: Build ${{ matrix.addon }} ${{ matrix.arch }}
+    needs: init
+    if: needs.init.outputs.changed == 'true'
+    strategy:
+      matrix:
+        addon: ${{ fromJson(needs.init.outputs.changed_addons) }}
+        arch: ["amd64", "aarch64", "armv7"]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Initialize submodules
+        run: |
+          git submodule update --init --recursive
+
+      - name: Get addon information
+        id: info
+        uses: home-assistant/actions/helpers/info@master
+        with:
+          path: "./${{ matrix.addon }}"
+
+      - name: Check if addon supports architecture
+        id: check
+        run: |
+          if [[ "${{ steps.info.outputs.architectures }}" =~ ${{ matrix.arch }} ]]; then
+             echo "supported=true" >> $GITHUB_OUTPUT
+             echo "image=${{ steps.info.outputs.image }}" >> $GITHUB_OUTPUT
+             echo "build_arch=${{ matrix.arch }}" >> $GITHUB_OUTPUT
+          else
+             echo "supported=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Login to GitHub Container Registry
+        if: steps.check.outputs.supported == 'true'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build addon
+        if: steps.check.outputs.supported == 'true'
+        uses: home-assistant/builder@2024.03.5
+        with:
+          args: |
+            --${{ matrix.arch }} \
+            --target /data/${{ matrix.addon }} \
+            --image "${{ steps.check.outputs.image }}" \
+            --docker-hub ghcr.io/${{ github.repository_owner }} \
+            --addon
+
+  # Optional: Notify on successful builds
+  notify:
+    runs-on: ubuntu-latest
+    name: Notify completion
+    needs: [init, build]
+    if: always() && needs.init.outputs.changed == 'true'
+    steps:
+      - name: Notify build completion
+        run: |
+          if [ "${{ needs.build.result }}" == "success" ]; then
+            echo "✅ All addon builds completed successfully"
+          else
+            echo "❌ Some addon builds failed"
+            exit 1
+          fi

@@ -1,36 +1,58 @@
-# saya6k Home Assistant add-on repository
+# 🏠 saya6k Home Assistant add-on repository
 
-My Private Home Assistant Add-on repository.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/saya6k/hassio-addons)](https://github.com/saya6k/hassio-addons/issues)
+[![Last Commit](https://img.shields.io/github/last-commit/saya6k/hassio-addons)](https://github.com/saya6k/hassio-addons/commits/main)
+[![Stars](https://img.shields.io/github/stars/saya6k/hassio-addons)](https://github.com/saya6k/hassio-addons/stargazers)
+
+> My Personal Home Assistant Add-on collection for extending functionality and automating daily tasks.
 
 Add-on documentation: <https://developers.home-assistant.io/docs/add-ons>
 
+## ⚡ Installation
+
 [![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fsaya6k%2Fhassio-addons)
 
-## Add-ons
+1. Navigate to the Home Assistant Supervisor panel
+2. Click on "Add-on Store" in the menu
+3. Click the 3-dots menu at the top right and select "Repositories"
+4. Add the URL: `https://github.com/saya6k/hassio-addons`
+5. The add-ons from this repository will now show under "Local Add-ons"
 
-This repository contains the following add-ons
+## 📦 Available Add-ons
+
+This repository contains the following add-ons:
 
 ### [Brother-QL-Web](https://github.com/saya6k/hassio-addon-brother-ql-web)
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
+[![GitHub Release][brother-ql-web-release-shield]][brother-ql-web-release]
+[![Submodule](https://img.shields.io/badge/submodule-brother_ql_web-blue)](https://github.com/saya6k/hassio-addon-brother-ql-web)
 
-Brother-QL Web add-on to print labels on Brother Label Printers._
+_Brother-QL Web add-on to print labels on Brother Label Printers._
 
 ### [ytdlp2STRM](https://github.com/saya6k/hassio-addon-ytdlp2strm)
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
+[![GitHub Release][ytdlp2strm-release-shield]][ytdlp2strm-release]
+[![Submodule](https://img.shields.io/badge/submodule-ytdlp2strm-blue)](https://github.com/saya6k/hassio-addon-ytdlp2strm)
 
-ytdlp2STRM add-on to convert Youtube & Twitch Live stream as strm files._
+_ytdlp2STRM add-on to convert Youtube & Twitch Live stream as strm files._
 
-### [mcp-grocy-api](https://github.com/saya6k/mcp-grocy-api]
+### [mcp-grocy-api](https://github.com/saya6k/mcp-grocy-api)
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
+[![GitHub Release][mcp-grocy-release-shield]][mcp-grocy-release]
+[![Submodule](https://img.shields.io/badge/submodule-mcp_grocy_api-blue)](https://github.com/saya6k/mcp-grocy-api)
 
-mcp-grocy-api add-on to support MCP(model context protocol) with Grocy.
+_mcp-grocy-api add-on to support MCP(model context protocol) with Grocy._
 
+## 📝 Contributing
+
+Contributions to improve these add-ons are welcome! Please feel free to submit a PR or open an issue.
 
 <!--
 
@@ -53,3 +75,9 @@ Notes to developers after forking or using the github template feature:
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
+[brother-ql-web-release-shield]: https://img.shields.io/github/release/saya6k/hassio-addon-brother-ql-web.svg
+[brother-ql-web-release]: https://github.com/saya6k/hassio-addon-brother-ql-web/releases
+[ytdlp2strm-release-shield]: https://img.shields.io/github/release/saya6k/hassio-addon-ytdlp2strm.svg
+[ytdlp2strm-release]: https://github.com/saya6k/hassio-addon-ytdlp2strm/releases
+[mcp-grocy-release-shield]: https://img.shields.io/github/release/saya6k/mcp-grocy-api.svg
+[mcp-grocy-release]: https://github.com/saya6k/mcp-grocy-api/releases
